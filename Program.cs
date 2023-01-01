@@ -10,7 +10,6 @@ namespace Metatrader_Autosaver
         static void Main(string[] args)
         {            
             Console.Title = "Metatrader Autosaver";
-            Console.WriteLine("Metatrader Autosaver Initialized");
 
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {

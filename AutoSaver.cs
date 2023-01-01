@@ -12,6 +12,7 @@ namespace Metatrader_Autosaver
         {
             AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
             Automation.AddAutomationFocusChangedEventHandler(focusHandler);
+            Console.WriteLine("Metatrader Autosaver Initialized");
         }
 
         private void OnFocusChanged(object sender, AutomationFocusChangedEventArgs e)
@@ -26,7 +27,7 @@ namespace Metatrader_Autosaver
                     Console.WriteLine("Focusing on " + getProccessName);
                     if (getProccessName == "Code")
                     {
-                        threadManager.CreateThread(KeyListener);
+                        threadManager.CreateThread(KeyWatcher);
                     }
                     else
                     {
@@ -37,9 +38,20 @@ namespace Metatrader_Autosaver
             }
         }
 
-        private void KeyListener()
+        private void KeyWatcher()
         {
-            Console.WriteLine("Test");
+            while (true)
+            {
+                int S_Key = 0x53;
+                int VK_LCONTROL = 0xA2;
+
+                Console.WriteLine("Watching Keys on VSCode");
+                if(KeyListener.CheckKeys(S_Key, VK_LCONTROL))
+                {
+                    Console.WriteLine("Keys pressed!");
+                }
+               System.Threading.Thread.Sleep(500);
+            }
         }
 
 

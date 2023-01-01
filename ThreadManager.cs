@@ -13,7 +13,8 @@ namespace Metatrader_Autosaver
             threadsList = new List<Thread>();
         }
 
-        public bool IsAnyThreadRunning() {
+        public bool IsAnyThreadRunning()
+        {
             foreach (Thread threadItem in threadsList)
             {
                 if (threadItem.IsAlive) return true;
@@ -34,10 +35,18 @@ namespace Metatrader_Autosaver
         {
             foreach (Thread threadItem in threadsList)
             {
-                if (threadItem.IsAlive) threadItem.Abort();
+                try
+                {
+
+                    if (threadItem.IsAlive) threadItem.Abort();
+                }
+                catch (Exception e)
+                {
+
+                }
             }
         }
 
-       
+
     }
 }
