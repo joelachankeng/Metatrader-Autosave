@@ -60,9 +60,9 @@ namespace Metatrader_Autosaver
 
         void saveMetatrader()
         {
-            int VK_F7 = 0x53;
-            metaeditor.ListAllChildClassNames();
-            //metaeditor.sendKey("Afx:002F0000:8", VK_F7);
+            int VK_F7 = 0x76;
+            //metaeditor.ListAllChildClassNames();
+            metaeditor.sendKey("Afx:002F0000:8", VK_F7);
         }
 
         public void Dispose(object sender, EventArgs e)

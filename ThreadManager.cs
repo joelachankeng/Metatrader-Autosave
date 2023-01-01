@@ -7,11 +7,11 @@ namespace Metatrader_Autosaver
 {
     class ThreadManager
     {
-        private List<Thread> threadsList;
+        private List<Thread> threadsList = new List<Thread>();
 
         public ThreadManager()
         {
-            threadsList = new List<Thread>();
+
         }
 
         public bool IsAnyThreadRunning()
