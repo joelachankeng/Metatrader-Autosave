@@ -8,7 +8,7 @@ namespace Metatrader_Autosaver
         ThreadManager threadManager = new ThreadManager();
 
         static void Main(string[] args)
-        {
+        {            
             Console.Title = "Metatrader Autosaver";
             Console.WriteLine("Metatrader Autosaver Initialized");
 
@@ -18,9 +18,15 @@ namespace Metatrader_Autosaver
                 return;
             }
 
-            new AutoSaver();
+            AutoSaver autoSaver = new AutoSaver();
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(autoSaver.Dispose);
 
             Console.Read();
+        }
+
+        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            Debug.WriteLine("exit");
         }
     }
 }

@@ -43,5 +43,11 @@ namespace Metatrader_Autosaver
         }
 
 
+        public void Dispose(object sender, EventArgs e)
+        {
+            threadManager.KillAll();
+            Debug.WriteLine("ThreadManager Killing All Threads!");
+        }
+
     }
 }
