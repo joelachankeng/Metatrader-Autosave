@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Automation;
 
 namespace Metatrader_Autosaver
 {
@@ -6,7 +7,7 @@ namespace Metatrader_Autosaver
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Metatrader Autosaver Initialized");
         }
     }
 }
