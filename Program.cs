@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Windows.Automation;
 
 namespace Metatrader_Autosaver
 {
     class Program
     {
+        ThreadManager threadManager = new ThreadManager();
+
         static void Main(string[] args)
         {
             Console.Title = "Metatrader Autosaver";
@@ -17,27 +18,9 @@ namespace Metatrader_Autosaver
                 return;
             }
 
-            AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
-            Automation.AddAutomationFocusChangedEventHandler(focusHandler);
+            new AutoSaver();
 
             Console.Read();
-
         }
-
-
-        static void OnFocusChanged(object sender, AutomationFocusChangedEventArgs e)
-        {
-            AutomationElement focusedElement = sender as AutomationElement;
-            if (focusedElement != null)
-            {
-                int processId = focusedElement.Current.ProcessId;
-                using (Process process = Process.GetProcessById(processId))
-                {
-                    Console.WriteLine("Focusing on " + process.ProcessName);
-                }
-            }
-        }
-
-
     }
 }
