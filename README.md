@@ -26,6 +26,7 @@ However, it is a pain and waste of productive time to switch back to Metatrader 
 
 
 - [Microsoft Visual Studio Community 2019](https://visualstudio.microsoft.com/downloads/)
+- UIAutomationClient.dll located in `~\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\UIAutomationClient.dll`
 
 ## Installation
 
