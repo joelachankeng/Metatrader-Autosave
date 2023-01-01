@@ -7,7 +7,8 @@ namespace Metatrader_Autosaver
     class AutoSaver
     {
         ThreadManager threadManager = new ThreadManager();
-
+        AppController metaeditor = new AppController("metaeditor");
+        string getProccessName;
         public AutoSaver()
         {
             AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
@@ -23,7 +24,7 @@ namespace Metatrader_Autosaver
                 int processId = focusedElement.Current.ProcessId;
                 using (Process process = Process.GetProcessById(processId))
                 {
-                    string getProccessName = process.ProcessName;
+                    getProccessName = process.ProcessName;
                     Console.WriteLine("Focusing on " + getProccessName);
                     if (getProccessName == "Code")
                     {
@@ -42,6 +43,8 @@ namespace Metatrader_Autosaver
         {
             while (true)
             {
+                if (getProccessName != "Code") break;
+                
                 int S_Key = 0x53;
                 int VK_LCONTROL = 0xA2;
 
@@ -49,11 +52,18 @@ namespace Metatrader_Autosaver
                 if(KeyListener.CheckKeys(S_Key, VK_LCONTROL))
                 {
                     Console.WriteLine("Keys pressed!");
+                    saveMetatrader();
                 }
                System.Threading.Thread.Sleep(500);
             }
         }
 
+        void saveMetatrader()
+        {
+            int VK_F7 = 0x53;
+            metaeditor.ListAllChildClassNames();
+            //metaeditor.sendKey("Afx:002F0000:8", VK_F7);
+        }
 
         public void Dispose(object sender, EventArgs e)
         {

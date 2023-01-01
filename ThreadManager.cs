@@ -34,6 +34,10 @@ namespace Metatrader_Autosaver
 
         public void KillAll()
         {
+            /**
+             * This was working just fine without try catch but then start getting this error:
+             * 'Thread abort is not supported on this platform.'
+             * ***/
             foreach (Thread threadItem in threadsList)
             {
                 try
@@ -42,7 +46,7 @@ namespace Metatrader_Autosaver
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("KillAll Exception: " +  e.Message);
+                    Debug.WriteLine("KillAll Exception: " + e.Message);
                 }
             }
         }
