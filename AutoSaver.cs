@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Windows.Automation;
 
 namespace Metatrader_Autosaver
 {
     class AutoSaver
     {
+        ThreadManager threadManager = new ThreadManager();
+
         public AutoSaver()
         {
             AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
@@ -26,15 +26,22 @@ namespace Metatrader_Autosaver
                     Console.WriteLine("Focusing on " + getProccessName);
                     if (getProccessName == "Code")
                     {
-
+                        threadManager.CreateThread(KeyListener);
                     }
                     else
                     {
-
+                        threadManager.KillAll();
                     }
 
                 }
             }
         }
+
+        private void KeyListener()
+        {
+            Console.WriteLine("Test");
+        }
+
+
     }
 }
