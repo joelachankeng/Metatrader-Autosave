@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Metatrader_Autosaver
@@ -37,12 +38,11 @@ namespace Metatrader_Autosaver
             {
                 try
                 {
-
                     if (threadItem.IsAlive) threadItem.Abort();
                 }
                 catch (Exception e)
                 {
-
+                    Debug.WriteLine("KillAll Exception: " +  e.Message);
                 }
             }
         }
