@@ -12,7 +12,9 @@ This bot was made via console C#.
 
 I hate Metatrader 4 IDE. 
 It doesn't come with an intellisense, linter, autoformatter, or any of the beneficial plugins that Visual Code has.
-So I develop Metatrader scripts and expert advisors with Visual Code. 
+
+So I develop Metatrader scripts and expert advisors with Visual Code.
+
 However, it is a pain and waste of productive time to switch back to Metatrader 4 IDE and click the Compile button every time I made a code change.
 
 ## Solution
