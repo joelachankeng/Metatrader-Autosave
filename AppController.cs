@@ -108,5 +108,19 @@ namespace Metatrader_Autosaver
                 Console.WriteLine(childWindow + " | className = " + className);
             }
         }
+
+        public List<string> GetAllChildClassNames()
+        {
+            getAppInfo();
+            List<string> classNames = new List<string>();
+            foreach (var childWindow in childWindows)
+            {
+                int nRet;
+                StringBuilder className = new StringBuilder(256);
+                nRet = GetClassName(childWindow, className, className.Capacity);
+                classNames.Add(className.ToString());
+            }
+            return classNames;
+        }
     }
 }
