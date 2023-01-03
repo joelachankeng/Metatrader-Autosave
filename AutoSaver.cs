@@ -72,7 +72,15 @@ namespace Metatrader_Autosaver
         {
             int VK_F7 = 0x76;
             //metaeditor.ListAllChildClassNames();
-            metaeditor.sendKey("Afx:002F0000:8", VK_F7);
+
+            foreach(string className in metaeditor.GetAllChildClassNames())
+            {
+                if (className.StartsWith("Afx:") && className.Length == 14)
+                {
+                    metaeditor.sendKey(className, VK_F7);
+                }
+            }
+            
         }
 
         public void Dispose(object sender, EventArgs e)
