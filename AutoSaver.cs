@@ -21,21 +21,31 @@ namespace Metatrader_Autosaver
             AutomationElement focusedElement = sender as AutomationElement;
             if (focusedElement != null)
             {
-                int processId = focusedElement.Current.ProcessId;
-                using (Process process = Process.GetProcessById(processId))
+                // need to be wrapped with try/catch due to error - System.Windows.Automation.ElementNotAvailableException: 'ElementNotAvailable'
+                // require further investigation - happens when open incognito window on chrome
+                try
                 {
-                    getProccessName = process.ProcessName;
-                    Console.WriteLine("Focusing on " + getProccessName);
-                    if (getProccessName == "Code")
+                    int processId = focusedElement.Current.ProcessId;
+                    using (Process process = Process.GetProcessById(processId))
                     {
-                        threadManager.CreateThread(KeyWatcher);
+                        getProccessName = process.ProcessName;
+                        Console.WriteLine("Focusing on " + getProccessName);
+                        if (getProccessName == "Code")
+                        {
+                            threadManager.CreateThread(KeyWatcher);
+                        }
+                        else
+                        {
+                            threadManager.KillAll();
+                        }
+
                     }
-                    else
-                    {
-                        threadManager.KillAll();
-                    }
+                } 
+                catch
+                {
 
                 }
+               
             }
         }
 
