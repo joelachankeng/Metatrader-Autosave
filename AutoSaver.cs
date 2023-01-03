@@ -54,12 +54,12 @@ namespace Metatrader_Autosaver
             while (true)
             {
                 if (getProccessName != "Code") break;
-                
+                int VK_LSHIFT = 0xA0;
                 int S_Key = 0x53;
                 int VK_LCONTROL = 0xA2;
 
                 Console.WriteLine("Watching Keys on VSCode");
-                if(KeyListener.CheckKeys(S_Key, VK_LCONTROL))
+                if(KeyListener.CheckKeys(S_Key, VK_LCONTROL) || KeyListener.CheckKey(VK_LSHIFT))
                 {
                     Console.WriteLine("Keys pressed!");
                     saveMetatrader();
