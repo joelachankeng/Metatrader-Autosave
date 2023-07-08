@@ -11,8 +11,8 @@ namespace Metatrader_Autosaver
         string getProccessName;
         public AutoSaver()
         {
-            AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
-            Automation.AddAutomationFocusChangedEventHandler(focusHandler);
+            //AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
+            //Automation.AddAutomationFocusChangedEventHandler(focusHandler);
             Console.WriteLine("Metatrader Autosaver Initialized");
         }
 
