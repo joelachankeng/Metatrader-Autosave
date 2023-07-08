@@ -9,11 +9,25 @@ namespace Metatrader_Autosaver
         ThreadManager threadManager = new ThreadManager();
         AppController metaeditor = new AppController("metaeditor");
         string getProccessName;
+
+        string previousProccessName;
+
+
         public AutoSaver()
         {
             //AutomationFocusChangedEventHandler focusHandler = OnFocusChanged;
             //Automation.AddAutomationFocusChangedEventHandler(focusHandler);
             Console.WriteLine("Metatrader Autosaver Initialized");
+            do
+            {
+                Console.WriteLine("Foreground window is " + AppController.GetForegroundProcess().ProcessName);
+                System.Threading.Thread.Sleep(1000);
+                getProccessName = AppController.GetForegroundProcess().ProcessName;
+                if (previousProccessName == getProccessName) continue;
+                createThread(AppController.GetForegroundProcess().Id);
+            } while (1 == 1);
+
+
         }
 
         private void OnFocusChanged(object sender, AutomationFocusChangedEventArgs e)
@@ -23,31 +37,36 @@ namespace Metatrader_Autosaver
             {
                 // need to be wrapped with try/catch due to error - System.Windows.Automation.ElementNotAvailableException: 'ElementNotAvailable'
                 // require further investigation - happens when open incognito window on chrome
-                try
-                {
-                    int processId = focusedElement.Current.ProcessId;
-                    using (Process process = Process.GetProcessById(processId))
-                    {
-                        getProccessName = process.ProcessName;
-                        Console.WriteLine("Focusing on " + getProccessName);
-                        if (getProccessName == "Code")
-                        {
-                            threadManager.CreateThread(KeyWatcher);
-                        }
-                        else
-                        {
-                            threadManager.KillAll();
-                        }
-
-                    }
-                } 
-                catch
-                {
-
-                }
-               
+                int processId = focusedElement.Current.ProcessId;
+                createThread(processId);
             }
         }
+
+        void createThread(int processId)
+        {
+            try
+            {
+                using (Process process = Process.GetProcessById(processId))
+                {
+                    getProccessName = process.ProcessName;
+                    previousProccessName = getProccessName;
+                    Console.WriteLine("Focusing on " + getProccessName);
+                    if (getProccessName == "Code")
+                    {
+                        threadManager.CreateThread(KeyWatcher);
+                    }
+                    else
+                    {
+                        threadManager.KillAll();
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+        } 
 
         private void KeyWatcher()
         {
@@ -85,6 +104,7 @@ namespace Metatrader_Autosaver
 
         public void Dispose(object sender, EventArgs e)
         {
+            Automation.RemoveAllEventHandlers();
             threadManager.KillAll();
             Debug.WriteLine("ThreadManager Killing All Threads!");
         }
